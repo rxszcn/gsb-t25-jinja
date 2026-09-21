@@ -291,7 +291,7 @@ class SandboxedEnvironment(Environment):
         """Subscribe an object from sandboxed code."""
         try:
             return obj[argument]
-        except (TypeError, LookupError):
+        except (AttributeError, TypeError, LookupError):
             if isinstance(argument, str):
                 try:
                     attr = str(argument)
@@ -320,7 +320,7 @@ class SandboxedEnvironment(Environment):
         except AttributeError:
             try:
                 return obj[attribute]
-            except (TypeError, LookupError):
+            except (TypeError, LookupError, AttributeError):
                 pass
         else:
             fmt = self.wrap_str_format(value)
